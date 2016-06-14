@@ -54,4 +54,26 @@
 			</props>
 		</property>
 	</bean>
+	
+	
+	<bean id = "adviceTest" class="myAdvice.AdviceTest"/>
+	<bean id = "performanceTraceAdvice" class ="myAdvice.ProfilingAdvice"/>
+	<aop:config>
+	
+<!-- 		<aop:aspect id = "traceAspect1" ref="performanceTraceAdvice">
+			<aop:pointcut expression="execution(public * myAdvice.AdviceTest.*(..))" id="publicMethod"/> 
+			접근제어자 :: public // classname : AdviceTest // 모든 매서드를 포함(..)
+			around :: 실행되기 전 후에 공통매서드 실행
+			
+			<aop:around pointcut-ref = "publicMethod" method="trace"/>
+		</aop:aspect>  -->
+		
+		<aop:aspect id = "traceAspect2" ref="performanceTraceAdvice">
+			<aop:pointcut expression="execution(public * myAdvice.AdviceTest.*(..))" id="returning"/> 
+			<aop:after-returning pointcut-ref = "returning" method="printStr" returning = "ret"/>
+		</aop:aspect>
+		
+	</aop:config>
+	
+	
 </beans>
