@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="myBean" class="test.SayHello" />
+	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		id="dataSource">
+		<property name="driverClassName"> <!-- getParameter와 같은역할을 한다. -->
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:oracle:thin:@localhost:1521:XE</value>
+		</property>
+		<property name="username">
+			<value>hr</value>
+		</property>
+		<property name="password">
+			<value>hr</value>
+		</property>
+	</bean>
+
+	<bean id="addrDao" class="addr.DaoImpl">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	</bean>
+
+	<bean id="addrService" class="addr.ServiceImpl" p:dao-ref="addrDao"/>
+
+ 	<!-- 
+	<bean id="addrDao" class="addr.DaoImpl">
+	<constructor-arg>
+		<ref bean ="dataSource"/>
+	</constructor-arg>
+	</bean> 
+
+	<bean id = "addrService" class ="addr.ServiceImpl">
+	<constructor-arg>
+		<ref bean = "addrDao"/>
+	</constructor-arg>
+	</bean>
+ -->	
+</beans>
