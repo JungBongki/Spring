@@ -41,5 +41,15 @@
 		<ref bean = "addrDao"/>
 	</constructor-arg>
 	</bean>
- -->	
+ -->
+
+	<bean name="PropTest" class="test.PropTest">
+		<property name="p">
+			<props>
+				<prop key="ip">192.168.0.14</prop>
+				<prop key="id">5000</prop>
+				<prop key="pwd">5000</prop>
+			</props>
+		</property>
+	</bean>
 </beans>
